@@ -22,8 +22,15 @@ public class ArrayApp {
 //        int[] arr2 = Arrays.copyOf(arr1, 10);
 //        for(int e : arr2) System.out.print(e + " ");
         // 얕은 복사와 깊은 복사
-        int[] arr1 = {1,2,3,4,};   //얕은 복사의 문제(같은 주소값을 가르치기때문에 값을 바꾸면 같은 주소를 바라보는값이 다 바뀜
-        int[] arr2 = arr1;
+        int[] arr1 = {1,3,2,4,5};   //얕은 복사의 문제(같은 주소값을 가르치기때문에 값을 바꾸면 같은 주소를 바라보는값이 다 바뀜
+        int[] arr2 = new int[10];//System.arraycopy(arr1, 0, arr2, 0, arr1.length); // 실제 값이 복사되므로 깊은복사가 일어남
+       // int[] arr2 = Arrays.copyOf(arr1, arr1.length);  // 실제 값이 복사되는 깊은 복사
+       // int[] arr2 = arr1; // 여기서 주소가 복사 되기 때문에 얕은 복사가 일어남
+
+        for(int i = 0; i < arr1.length; i++) {
+            arr2[i] = arr1[i];
+        }
+
         arr1[0] = 100;
         for(int e : arr1) System.out.print(e + " ");
         System.out.println();
