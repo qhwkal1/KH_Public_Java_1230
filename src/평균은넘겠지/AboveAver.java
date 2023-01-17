@@ -1,4 +1,7 @@
 package 평균은넘겠지;
+
+import java.util.Scanner;
+
 // 문제
 // 대학생 새내기들의 90%는 자신이 반에서 평균을 넘는다고 생각한다.
 // 5 => 총 테스트 케이스
@@ -7,9 +10,6 @@ package 평균은넘겠지;
 // 3 70 90 80
 // 3 70 90 81
 // 9 100 99 98 97 96 95 94 93 92 91
-
-import java.util.Scanner;
-
 // 40.000%
 // 57.143%
 // 33.333%
@@ -18,20 +18,33 @@ import java.util.Scanner;
 public class AboveAver {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int average;
-        int tc = sc.nextInt();
-
-    }
-}
-class  TestCase {
-    Scanner sc = new Scanner(System.in);
-    int sum = sc.nextInt();
-    int a;
-    TestCase() {
-        for(a = 0; a < sc.nextInt(); a++) {
-            if(sum / a >= 50) System.out.print("평균값은 : " + a);
+        int testCnt = sc.nextInt();
+        double[] rst = new double[testCnt];
+        for(int i = 0; i < rst.length; i++) {
+            rst[i] = overRate();
         }
+        for (double e : rst) {
+            System.out.printf("%.3f%%\n", e);
+        }
+
     }
-
-
+    // 각 케이스에 대한 학생수와 그리고 각각의 성적을 입력 받음
+    // 입력 받은 성적에 대한 평균 구하기
+    // 평균을 넘는 학생 수 구하기 (소수점 이하 3자리 변환해서 반환)
+    static double overRate() {
+        Scanner sc = new Scanner(System.in);
+        int cnt = sc.nextInt(); // 각 케이스에 대학 학생 수
+        int total = 0; // 총점을 구하기 위한 변수
+        int overCnt = 0; // 평균이 넘는 학생 수
+        int[] score = new int[cnt];
+        for(int i = 0; i < score.length; i++) {
+            score[i] = sc.nextInt();
+            total += score[i]; // 학생수 만큼 입력 받은 성적을 누적해 총점을 구함.
+        }
+        double aver = (double)total / cnt;
+        for(int e : score) { // e값은 개별 학생의 성적
+            if(e > aver) overCnt++; // 평균을 넘는 학생수 구하기
+        }
+        return (double)overCnt / cnt * 100; // 백분율로 변경하기위해 100을 곱해줌
+    }
 }
