@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+
 public class CoffeeMenuEx {
     Map<String, MenuInfo> map = new HashMap<>();
     public static void main(String[] args) {
@@ -43,7 +44,8 @@ public class CoffeeMenuEx {
                     System.out.println("가격 : " + map.get(key).price);
                     System.out.println("분류 : " + map.get(key).group);
                     System.out.println("설명 : " + map.get(key).desc);
-                } else System.out.println("해당 메뉴가 존재하지 않습니다."); break;
+                } else System.out.println("해당 메뉴가 존재하지 않습니다.");
+                break;
             case 3:
                 System.out.print("추가 할 메뉴를 입력 하세요 : ");
                 key = sc.next();
@@ -61,7 +63,45 @@ public class CoffeeMenuEx {
                 }
                 break;
             case 4:
+                System.out.println("삭제할 메뉴를 입력 하세요 : ");
+                key = sc.next();
+                if(map.containsKey(key)) {
+                    map.remove(key);
+                    System.out.println(key + "메뉴를 삭제했습니다");
+                } else {
+                    System.out.println("삭제할 메뉴가 없습니다");
+                }
+                break;
+
             case 5:
+                System.out.println("수정할 메뉴를 입력 하세요 : ");
+                key = sc.next();
+                int price;
+                String group;
+                String desc;
+                String name;
+                if(map.containsKey(key)) {
+                    System.out.print("바꿀 이름 입력하세요 : ");
+                    name = sc.next();
+                    System.out.print("바꿀 가격을 입력하세요 :");
+                    price = sc.nextInt();
+                    System.out.print("바꿀 카테고리를 입력하세요 : ");
+                    group = sc.next();
+                    System.out.print("바꿀 메뉴에 대한 설명을 입력하세요 : ");
+                    desc = sc.next();
+                    map.replace(key ,new MenuInfo(name,price,group,desc));
+                    System.out.println("----------바뀐 메뉴 정보는---------");
+
+                        System.out.println("메뉴 : " + map.get(key).name);
+                        System.out.println("가격 : " + map.get(key).price);
+                        System.out.println("분류 : " + map.get(key).group);
+                        System.out.println("설명 : " + map.get(key).desc);
+                        System.out.println("==============================");
+
+                } else {
+                    System.out.println("수정 할 메뉴가 없습니다.");
+
+                }
             case 6:
                 System.out.println("메뉴를 종료 합니다");
                 return;
