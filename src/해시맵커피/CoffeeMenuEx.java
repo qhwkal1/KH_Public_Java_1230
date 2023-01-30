@@ -3,7 +3,10 @@ import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+// HashMap ? 키와 값의 Pair 로 구성된 형태
+// 동일 여부 판단을 HashCode 를 통해서 함.
+// 키는 중복 허용을 하지 않음, 단 값을 중복 허용을 함.
+// 순서를 보장하지 않는다.
 
 public class CoffeeMenuEx {
     Map<String, MenuInfo> map = new HashMap<>();
@@ -28,8 +31,8 @@ public class CoffeeMenuEx {
         switch (selMenu) {
             case 1:
                 System.out.println("======== 메뉴 보기 ========");
-                for(String e : map.keySet()) {
-                    System.out.println("메뉴 : " + map.get(e).name);
+                for(String e : map.keySet()) { // 키값 기준으로 향상된 for 문을 반복 수정
+                    System.out.println("메뉴 : " + map.get(e).name); // 키로 해당하는 값을 얻어 냄
                     System.out.println("가격 : " + map.get(e).price);
                     System.out.println("분류 : " + map.get(e).group);
                     System.out.println("설명 : " + map.get(e).desc);
@@ -39,7 +42,7 @@ public class CoffeeMenuEx {
             case 2:
                 System.out.print("조회할 메뉴를 입력하세요 : ");
                 key = sc.next();
-                if(map.containsKey(key)) {
+                if(map.containsKey(key)) { // 매개변수로 전달된 키가 Map 내에 존재하는지 확인 (true / false)
                     System.out.println("메뉴 : " + map.get(key).name);
                     System.out.println("가격 : " + map.get(key).price);
                     System.out.println("분류 : " + map.get(key).group);
@@ -59,17 +62,17 @@ public class CoffeeMenuEx {
                     sc.nextLine();
                     System.out.print("설명 : ");
                     String desc = sc.nextLine();
-                    map.put(key,new MenuInfo(key, price, group, desc));
+                    map.put(key,new MenuInfo(key, price, group, desc)); // 키와 값(객체)을 추가함
                 }
                 break;
             case 4:
                 System.out.println("삭제할 메뉴를 입력 하세요 : ");
                 key = sc.next();
-                if(map.containsKey(key)) {
-                    map.remove(key);
-                    System.out.println(key + "메뉴를 삭제했습니다");
+                if(map.containsKey(key)) { // 삭제할 메뉴에 대한 키가 있으면 삭제
+                    map.remove(key); // 키로 해당하는 맵을 entry 제거
+                    System.out.println(key + " 메뉴를 삭제했습니다.");
                 } else {
-                    System.out.println("삭제할 메뉴가 없습니다");
+                    System.out.println("삭제할 메뉴가 없습니다.");
                 }
                 break;
 
@@ -101,7 +104,7 @@ public class CoffeeMenuEx {
                 } else {
                     System.out.println("수정 할 메뉴가 없습니다.");
 
-                }
+                } break;
             case 6:
                 System.out.println("메뉴를 종료 합니다");
                 return;
