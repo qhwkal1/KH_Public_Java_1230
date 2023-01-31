@@ -14,10 +14,3 @@ public class MenuInfo {
     }
 }
 
-
-
-
-
-//enum MenuName {
-//    AMERICANO, LATTE, ESPRESSO, COLDBREW, MOCA
-//}
