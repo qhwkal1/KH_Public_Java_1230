@@ -1,4 +1,4 @@
-package 큐연습;
+package 집합.큐연습;
 
 import java.util.LinkedList;
 import java.util.Queue;
