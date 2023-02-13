@@ -1,18 +1,18 @@
-package 명함전송서버;
-import java.io.*;
+package 소켓명함다중전송서버;
+import 명함전송서버.NameCard;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-// 1. 명함 정보를 담을 클래스 생성 (이름, 전화번호, 이메일, 소속)
-// 2. List 생성 후 10명에 대한 명함 정보 입력
-// 3. 서버는 accept() 에서 클라이언트 연결을 기다리다가 연결 요청이 오면 연결을 수락하고
-// 명함 전송 여부를 물어본 (전송 하시겠습니까? (Yes / NO) )
-// 4. 클라이언트에서 명함을 수신하면 출력하기
-public class NameCardServer {
+
+public class MultiSerialEx2 {
     static List<NameCard> list = new ArrayList<>();
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException {
         int port = 0401;
         ServerSocket serverSocket = new ServerSocket(port);
         Scanner sc = new Scanner(System.in);
@@ -21,15 +21,10 @@ public class NameCardServer {
             System.out.println("[클라이언트 : " + socket.getRemoteSocketAddress() + "] 연결");
             System.out.println("클라이언트로 명함을 전송 하시겠습니까?(yes / no) : ");
             String confirm = sc.next();
-            if(confirm.equalsIgnoreCase("yes")) {
-                OutputStream os = socket.getOutputStream();
-                ObjectOutputStream oos = new ObjectOutputStream(os);
-                oos.writeObject(writeNameCard());
-                oos.flush();
-                oos.close();
-                os.close();
-
-            } else System.out.println("전송을 종료합니다."); break;
+            if (confirm.equalsIgnoreCase("yes")) {
+                Thread nameTh = new NameServerTh(socket);
+                nameTh.start();
+            }
         }
     }
     static List<NameCard> writeNameCard() {
@@ -46,4 +41,28 @@ public class NameCardServer {
         list.add(new NameCard("신채은","010-6603-8331","sce@naver.com","단풍"));
         return list;
     }
+}
+
+class NameServerTh extends Thread {
+    static ArrayList<Socket> sockets = new ArrayList<>();
+    Socket socket;
+    public NameServerTh(Socket socket) {
+        this.socket = socket;
+        sockets.add(socket);
+    }
+    @Override
+    public void run() {
+        try {
+            for(int i = 0; i < sockets.size(); i++) {
+                OutputStream os = sockets.get(i).getOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(os);
+                oos.writeObject(MultiSerialEx2.writeNameCard()); // 직렬화를 위해 객체를 write
+                oos.flush();
+                oos.close();
+                System.out.println(sockets.get(i).getRemoteSocketAddress().toString() + "에게 전송 완료");
+                os.flush();
+            }
+        } catch (IOException e) {}
+    }
+
 }

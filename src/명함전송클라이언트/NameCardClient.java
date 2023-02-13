@@ -8,7 +8,7 @@ import java.util.List;
 
 public class NameCardClient {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket("localhost",0401);
+        Socket socket = new Socket("192.168.10.245",8990);
         System.out.println("서버 접속 성공");
         InputStream is = socket.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
