@@ -21,8 +21,13 @@ public class ImgSocketServer {
         String path = sc.nextLine();
         System.out.println("파일명 : " + path);
         try {
-            Socket socket = serverSocket.accept();
-            System.out.print("[클라이언트 : " + socket.getRemoteSocketAddress() + "연결되었습니다.");
+            serverSocket = new ServerSocket(port); // IP와 port 연결하는 binding 절차 진행
+            while (true) {
+                Socket socket = serverSocket.accept();
+                System.out.print("[클라이언트 : " + socket.getRemoteSocketAddress() + "연결되었습니다.");
+                Thread imgTh = new ImgServerTh(socket, path);
+                imgTh.start();
+            }
 
         } catch (ConnectException e) {
         } catch (IOException e) {}
