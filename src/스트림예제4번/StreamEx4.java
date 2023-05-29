@@ -11,6 +11,7 @@ public class StreamEx4 {
     public static void main(String[] args) {
         List<Integer> list = Arrays.asList(1,2,3,4,6,7,8,9,10);
         list.stream().forEach(System.out::println);
+        list.forEach(System.out::println);
         list.stream().forEach(e->System.out.print(e + " ")); // 메소드 참조 문법을 사용할 수 있음
         IntStream stream = IntStream.rangeClosed(1,100); // 1~100 까지의 합을 구하기
         int sum =  stream.sum();
