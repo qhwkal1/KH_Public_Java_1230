@@ -11,6 +11,5 @@ public class NetworkEx1 {
         for(InetAddress remote : iaArr) {
             System.out.println("네이버 IP 주소 : " + remote.getHostAddress());
         }
-
     }
 }
