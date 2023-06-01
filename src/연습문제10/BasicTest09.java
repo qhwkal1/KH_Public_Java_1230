@@ -16,6 +16,7 @@ public class BasicTest09 {
                 }
             }
         }
+        for(int e : arr) System.out.println(e + " ");
     }
 }
 

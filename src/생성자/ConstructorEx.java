@@ -24,8 +24,6 @@ class Car {
     String color;
     int maxSpeed;
     Car() {
-
-
     }
     // 생성자 오버로딩 규칙은 매개변수 타입이나 개수를 가지고 구분
     Car(String name) {
