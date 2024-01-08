@@ -31,7 +31,7 @@ public class ObjectStreamEx {
         list.add(new Board(3,"재벌집 막내아들","경제 드라마","정대윤",new Date()));
 
         FileOutputStream fos = new FileOutputStream("board.db"); // 실제 최종적으로 바이트로 쓰여짐
-        ObjectOutput oop = new ObjectOutputStream(fos);
+        ObjectOutputStream oop = new ObjectOutputStream(fos);
         oop.writeObject(list); // 객체 출력 스트림을 이용해서 list 를 출력
         oop.flush();
         oop.close();

@@ -15,6 +15,10 @@ public class DataType {
         ns.name = "곰돌이사육사";
         ns.age = 20;
         System.out.println(ns.name);
+        ns.addr = "경기도";
+        System.out.println(ns.addr);
+
+
     }
 }
 // 사용자 정의 자료형

@@ -2,7 +2,6 @@ package 큐히스토리;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-
 // 큐를 이용해서 명령어 이력 조회 만들기
 public class QueueHistoryEx {
     Queue<String> queue = new LinkedList<>();
